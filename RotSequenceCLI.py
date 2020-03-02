@@ -10,13 +10,13 @@ def rot(*symbols):
     return _rot
 
 # Define alphanumeric rot
-rot_ascii = rot(ascii_letters + digits + punctuation + ' ')
+rot_ascii = rot(ascii_letters + digits + punctuation + ' \n')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", dest="input", metavar="<inputfile>", required=True)
     parser.add_argument("-o", dest="output", metavar="<outputfile>", required=True)
-    parser.add_argument("-k", dest="key", metavar="<1-94>,<1-94>,...", required=True)
+    parser.add_argument("-k", dest="key", metavar="<1-95>,<1-95>,...", required=True)
     parser.add_argument("-d", dest="decode", action="store_true", help="Enable decode mode")
 
     args = parser.parse_args()
