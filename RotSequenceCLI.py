@@ -44,5 +44,4 @@ if __name__ == "__main__":
     
     outputfile.write(cipherText)
     outputfile.close()
-
-
+    
