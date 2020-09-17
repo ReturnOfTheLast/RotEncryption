@@ -1,5 +1,6 @@
 from string import ascii_letters, digits, punctuation
-import argparse
+from KeyGen import genKey as __gk
+import argparse as __ap
 
 # Define rot function
 def rot(*symbols):
@@ -10,37 +11,35 @@ def rot(*symbols):
     return _rot
 
 # Define alphanumeric rot
-rot_ascii = rot(ascii_letters + digits + punctuation + ' \n')
+rot_ascii = rot(ascii_letters + digits + punctuation + ' ')
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", dest="input", metavar="<inputfile>", required=True)
-    parser.add_argument("-o", dest="output", metavar="<outputfile>", required=True)
-    parser.add_argument("-k", dest="key", metavar="<1-95>,<1-95>,...", required=True)
+    parser = __ap.ArgumentParser()
+    parser.add_argument("input", metavar="<input>")
+    parser.add_argument("-k", dest="key", metavar="<1-94>,...", help="Use specific key")
     parser.add_argument("-d", dest="decode", action="store_true", help="Enable decode mode")
-
     args = parser.parse_args()
+    
+    if args.key:
+        keyText = args.key
+    else:
+        keyText = __gk(len(args.input))
 
-    inputfile = open(args.input, "r")
-    outputfile = open(args.output, "w+")
-    key = args.key.split(',')
+    keyList = keyText.split(',')
 
-    for i in range(0, len(key)):
+    for i in range(0, len(keyList)):
         if not args.decode:
-            key[i] = int(key[i])
+            keyList[i] = int(keyList[i])
         else:
-            key[i] = -int(key[i])
+            keyList[i] = -int(keyList[i])
 
     clearText = ""
-    clearText = inputfile.read()
-    inputfile.close()
-
+    clearText = args.input
     cipherText = ""
-    i = 0
-
-    for char in clearText:
-        cipherText += rot_ascii(key[i%len(key)])(char)
-        i += 1
     
-    outputfile.write(cipherText)
-    outputfile.close()
+    i = 0
+    for c in clearText:
+        cipherText += rot_ascii(keyList[i%len(keyList)])(c)
+        i += 1
+    print("Text: " + cipherText)
+    print("Key: " + keyText)

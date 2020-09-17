@@ -1,9 +1,13 @@
-import random
+from random import randint as __ri
 
-length = int(input("Length of key: "))
+def genKey(length):
+    key = ""
+    for i in range(0, length):
+        key += str(__ri(1, 94))
+        if i < length - 1:
+            key += ","
+    return key
 
-for i in range(0, length):
-    print(random.randint(1, 94), end="")
-    if not i == length -1:
-        print(", ", end="")
-print("")
+if __name__ == "__main__":
+    length = int(input("Length of key: "))
+    print(genKey(length))
