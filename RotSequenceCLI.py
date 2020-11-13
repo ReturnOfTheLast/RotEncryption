@@ -16,7 +16,7 @@ rot_ascii = rot(ascii_letters + digits + punctuation + ' ')
 if __name__ == "__main__":
     parser = __ap.ArgumentParser()
     parser.add_argument("input", metavar="<input>")
-    parser.add_argument("-k", dest="key", metavar="<1-94>,...", help="Use specific key")
+    parser.add_argument("-k", dest="key", metavar="<0-94>,...", help="Use specific key")
     parser.add_argument("-d", dest="decode", action="store_true", help="Enable decode mode")
     args = parser.parse_args()
     
